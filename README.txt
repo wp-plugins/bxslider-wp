@@ -1,4 +1,4 @@
-=== Cyclone Slider 2 ===
+=== BxSlider WP ===
 Contributors: kosinix
 Donate link: http://www.codefleet.net/donate/
 Tags: bxslider, wordpress, slider, slideshow, jquery, responsive, multilingual support, custom post
