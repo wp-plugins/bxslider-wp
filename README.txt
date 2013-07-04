@@ -24,8 +24,7 @@ Provides an easy to use interface for BxSlider that blends seamlessly with your 
 * Small file size, fully themed, simple to implement
 * Browser support: Firefox, Chrome, Safari, iOS, Android, IE7+
 * Tons of configuration options
-* Comes with a widget to display your slideshow easily in widget areas.
-* It's totally FREE!
+* It's FREE!
 
 = Homepage =
 Learn more about [BxSlider WP](http://www.codefleet.net/bxslider-wp/)
