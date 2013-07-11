@@ -54,10 +54,10 @@ if(!class_exists('Bxslider_Data')):
         
         
         /**
-        * Gets all sliders
-        *
-        * @return array The array of slider
-        */
+         * Gets all sliders
+         *
+         * @return array The array of slider
+         */
         public static function get_sliders() {
             $args = array(
                 'post_type' => 'bxslider',
@@ -76,13 +76,13 @@ if(!class_exists('Bxslider_Data')):
         }
         
         /**
-        * Get a slider
-        *
-        * @param string $name Post slug of the slider custom post.
-        * @return array The array of slider
-        */
+         * Get a slider
+         *
+         * @param string $name Post slug of the slider custom post.
+         * @return array The array of slider
+         */
         public static function get_slider_by_name( $name ) {
-            // Get slideshow by id
+            // Get slider by id
             $args = array(
                 'post_type' => 'bxslider',
                 'order'=>'ASC',
@@ -100,28 +100,28 @@ if(!class_exists('Bxslider_Data')):
         }
         
         /**
-        * Gets the slideshow settings. Defaults and filters are applied.
-        *
-        * @param int $slideshow_id Post ID of the slideshow custom post.
-        * @return array The array of slideshow settings
-        */
-        public static function get_saved_data( $slideshow_id ) {
-            $meta = get_post_custom($slideshow_id);
-            $slideshow_settings = array();
+         * Gets the slider settings. Defaults and filters are applied.
+         *
+         * @param int $slider_id Post ID of the slider custom post.
+         * @return array The array of slider settings
+         */
+        public static function get_saved_data( $slider_id ) {
+            $meta = get_post_custom($slider_id);
+            $slider_settings = array();
             if(isset($meta['_bxslider'][0]) and !empty($meta['_bxslider'][0])){
-                $slideshow_settings = maybe_unserialize($meta['_bxslider'][0]);
+                $slider_settings = maybe_unserialize($meta['_bxslider'][0]);
             }
-            return $slideshow_settings;
+            return $slider_settings;
         }
         
         /**
-        * Gets the number of slides in a slideshow
-        *
-        * @param int Slideshow id
-        * @return int Total slides
-        */
-        public static function get_slides_count($slideshow_id){
-            $slides = self::get_slides( $slideshow_id );
+         * Gets the number of slides in a slider
+         *
+         * @param int Slider id
+         * @return int Total slides
+         */
+        public static function get_slides_count($slider_id){
+            $slides = self::get_slides( $slider_id );
             if(!empty($slides)){
                 return count( $slides );
             }
@@ -129,14 +129,14 @@ if(!class_exists('Bxslider_Data')):
         }
         
         /**
-        * Get slides
-        *
-        * @param int Slideshow id
-        * @return array Slide data
-        */
-        public static function get_slides( $slideshow_id ){
+         * Get slides
+         *
+         * @param int Slider id
+         * @return array Slide data
+         */
+        public static function get_slides( $slider_id ){
             $slides = array();
-            $saved_data = self::get_saved_data( $slideshow_id );
+            $saved_data = self::get_saved_data( $slider_id );
             if(isset( $saved_data['slides'] ) and !empty( $saved_data['slides'] )){
                 $slides = $saved_data['slides'];
             }
@@ -150,6 +150,9 @@ if(!class_exists('Bxslider_Data')):
             return array(
                 'type' => 'image',
                 'id' => '',
+                'enable_link' => 'false',
+                'link' => '',
+                'link_target' => '_self',
                 'caption' => '',
                 'custom' => ''
             );
@@ -158,12 +161,12 @@ if(!class_exists('Bxslider_Data')):
         /**
          * Get slider options
          *
-         * @param int Slideshow id
+         * @param int $slider_id - ID of slider to get options from
          * @return array Slide options data
          */
-        public static function get_options( $slideshow_id ){
+        public static function get_options( $slider_id ){
             $options = array();
-            $saved_data = self::get_saved_data( $slideshow_id );
+            $saved_data = self::get_saved_data( $slider_id );
             if(isset( $saved_data['options'] ) and !empty( $saved_data['options'] )){
                 $options = $saved_data['options'];
             }
@@ -232,6 +235,11 @@ if(!class_exists('Bxslider_Data')):
             );
         }
         
+        /**
+         * Get array of jquery easing options
+         *
+         * @return array Easing options
+         */
         public static function get_jquery_easing_options(){
             return array(
                 array(
@@ -365,6 +373,11 @@ if(!class_exists('Bxslider_Data')):
             );
         }
         
+        /**
+         * Get array of CSS3 easing options
+         *
+         * @return array Easing options
+         */
         public static function get_css_easing_options(){
             return array(
                 array(
@@ -392,6 +405,15 @@ if(!class_exists('Bxslider_Data')):
                     'value' => 'ease-in-out'
                 )
             );
+        }
+        
+        /**
+         * Debug with a twist
+         *
+         * @echo variable
+         */
+        public static function debug($s){
+            echo '<pre>'.print_r($s, 1).'</pre>';
         }
     }
     

@@ -27,17 +27,37 @@ if(!class_exists('Bxslider_Slider')):
          * Add front end scripts and styles  
          */
         public function register_plugin_scripts() {
-
+            
+            /*** We do some checking here so that we load only scripts when needed. ***/
+            $is_using_jquery_easing = false;
+            $has_video = false;
+            if($sliders = BxSlider_Data::get_sliders()){
+                foreach($sliders as $slider){
+                    $options = BxSlider_Data::get_options($slider->ID);
+                    if($options['use_css']=='false'){
+                        $is_using_jquery_easing = true;
+                    }
+                    if($options['video']=='true'){
+                        $has_video = true;
+                    }
+                }
+            }
+            
             /*** Styles ***/
             wp_enqueue_style( 'bxslider-styles', BXSLIDER_URL.'bxslider/jquery.bxslider.css', array(), BXSLIDER_VERSION );
             
             /*** Scripts ***/
-            wp_enqueue_script( 'easing', BXSLIDER_URL.'bxslider/plugins/jquery.easing.1.3.js', array('jquery'), BXSLIDER_VERSION );
-            wp_enqueue_script( 'fitvids', BXSLIDER_URL.'bxslider/plugins/jquery.fitvids.js', array('jquery'), BXSLIDER_VERSION );
+            if($is_using_jquery_easing){ //If one of the sliders using jquery easing
+                wp_enqueue_script( 'easing', BXSLIDER_URL.'bxslider/plugins/jquery.easing.1.3.js', array('jquery'), BXSLIDER_VERSION );
+            }
+            if($has_video){ //If one of the sliders has a video slide
+                wp_enqueue_script( 'fitvids', BXSLIDER_URL.'bxslider/plugins/jquery.fitvids.js', array('jquery'), BXSLIDER_VERSION );
+            }
             wp_enqueue_script( 'bxslider', BXSLIDER_URL.'bxslider/jquery.bxslider.min.js', array('jquery'), BXSLIDER_VERSION ); 
-            wp_enqueue_script( 'bxslider-initialize', BXSLIDER_URL.'js/initialize.js', array('bxslider'), BXSLIDER_VERSION );
-
-        
+            wp_enqueue_script( 'bxslider-initialize', BXSLIDER_URL.'js/initialize.min.js', array('bxslider'), BXSLIDER_VERSION );
+            
+            
+            
         }
         
         /**
@@ -68,6 +88,7 @@ if(!class_exists('Bxslider_Slider')):
                 $vars['slider_id'] = $slider->ID;
                 
                 foreach($vars['slides'] as $i=>$slide){
+                    $vars['slides'][$i] = wp_parse_args($slide, Bxslider_Data::get_slide_defaults()); //Apply defaults in case some keys are missing
                     $image_url = wp_get_attachment_image_src( $slide['id'], 'full' );
                     $image_url = (is_array($image_url)) ? $image_url[0] : '';
                     $vars['slides'][$i]['image_url'] = $image_url;

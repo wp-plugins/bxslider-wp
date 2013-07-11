@@ -199,10 +199,9 @@ if(!class_exists('Bxslider_Builder')):
                 foreach($slides as $i=>$slide):
         
                     $vars = array();
-                    
                     $vars['i'] = $i;
                     $vars['options'] = $options;
-                    $vars['slide'] = $slide;
+                    $vars['slide'] = wp_parse_args($slide, Bxslider_Data::get_slide_defaults());
                     $vars['image_url'] = $this->get_slide_img_thumb($slide['id']);
                     $vars['box_title'] = __('Slide', 'bxslider');
                     
@@ -218,12 +217,10 @@ if(!class_exists('Bxslider_Builder')):
             $view->render();
 
             
-            //nix(Bxslider_Data::get_options( $post->ID ));
-           // nix(Bxslider_Data::get_slides( $post->ID ));
+            //Bxslider_Data::debug( Bxslider_Data::get_options( $post->ID ));
+            //Bxslider_Data::debug( Bxslider_Data::get_slides( $post->ID ));
         }
-        function nix($s){
-            echo '<pre>'.print_r($s, 1).'</pre>';
-        }
+        
         /**
          * Metabox for general options
          */
@@ -428,10 +425,10 @@ if(!class_exists('Bxslider_Builder')):
          */
         public function slideshow_columns($columns) {
             $columns = array();
-            $columns['title']= __('Slider Name', 'cycloneslider');
-            $columns['images']= __('Images', 'cycloneslider');
-            $columns['id']= __('Slider ID', 'cycloneslider');
-            $columns['shortcode']= __('Shortcode', 'cycloneslider');
+            $columns['title']= __('Slider Name', 'bxslider');
+            $columns['images']= __('Images', 'bxslider');
+            $columns['id']= __('Slider ID', 'bxslider');
+            $columns['shortcode']= __('Shortcode', 'bxslider');
             return $columns;
         }
         
@@ -461,12 +458,12 @@ if(!class_exists('Bxslider_Builder')):
             global $post, $post_ID;
             $messages['bxslider'] = array(
                 0  => '',
-                1  => sprintf( __( 'Slider updated. Shortcode is: [bxslider id="%s"].', 'bxslider' ), $post->post_name, $post->post_name),
+                1  => sprintf( __( 'Slider updated. Shortcode is: %s', 'bxslider' ), '<input readonly onfocus="bxslider_select(this)" type="text" value="'.esc_attr('[bxslider id="'.$post->post_name.'"]').'">'),
                 2  => __( 'Custom field updated.', 'bxslider' ),
                 3  => __( 'Custom field deleted.', 'bxslider' ),
                 4  => __( 'Slider updated.', 'bxslider' ),
                 5  => __( 'Slider updated.', 'bxslider' ),
-                6  => sprintf( __( 'Slider published. Shortcode is: [bxslider id="%s"].', 'bxslider' ), $post->post_name, $post->post_name),
+                6  => sprintf( __( 'Slider created. Shortcode is: %s', 'bxslider' ), '<input readonly onfocus="bxslider_select(this)" type="text" value="'.esc_attr('[bxslider id="'.$post->post_name.'"]').'">'),
                 7  => __( 'Slider saved.', 'bxslider' ),
                 8  => __( 'Slider updated.', 'bxslider' ),
                 9  => __( 'Slider updated.', 'bxslider' ),
