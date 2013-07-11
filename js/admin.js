@@ -25,6 +25,17 @@ var cs_local_storage = (function () {
     };
 })();
 
+function bxslider_select(me) {
+    me.select();
+
+    // Work around Chrome's little problem
+    me.onmouseup = function() {
+        // Prevent further mouseup intervention
+        me.onmouseup = null;
+        return false;
+    };
+};
+
 /*** Class for handling open and close expandable and slide elements. Use together with cs_local_storage ***/
 function CsUiOpen(data){
     if(!data){
@@ -121,8 +132,6 @@ jQuery(document).ready(function($){
             $('.expandable-body').each(function(i){
                 $(this).data('cs_id',i);
             });
-            
-            $(".cycloneslider_metas_enable_slide_effects").trigger('change');
             
             e.preventDefault();
         });
