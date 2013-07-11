@@ -71,7 +71,6 @@ Use `<?php echo do_shortcode('[bxslider id="slider-1"]'); ?>`
 1. All slider Screen
 2. Slider Editing Screen
 3. Slider in Action
-4. Slider Widget
 
 == Changelog ==
 
