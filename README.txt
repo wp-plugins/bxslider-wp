@@ -2,9 +2,9 @@
 Contributors: kosinix
 Donate link: http://www.codefleet.net/donate/
 Tags: bxslider, wordpress, slider, slideshow, carousel, jquery, responsive, multilingual, custom post
-Requires at least: 3.3.2
-Tested up to: 3.5.1
-Stable tag: 1.0.0
+Requires at least: 3.5
+Tested up to: 3.5.2
+Stable tag: 1.3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
