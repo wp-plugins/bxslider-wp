@@ -1,33 +1,41 @@
 === BxSlider WP ===
 Contributors: kosinix
 Donate link: http://www.codefleet.net/donate/
-Tags: bxslider, wordpress, slider, slideshow, jquery, responsive, multilingual support, custom post
+Tags: bxslider, wordpress, slider, slideshow, carousel, jquery, responsive, multilingual, custom post
 Requires at least: 3.3.2
 Tested up to: 3.5.1
-Stable tag: 0.0.9
+Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-An easy to use WordPress plugin for bxSlider.
+An easy-to-use WordPress slider plugin for bxSlider.
 
 == Description ==
 
-Provides an easy to use interface for BxSlider that blends seamlessly with your WordPress workflow.
+Provides an easy-to-use interface for building responsive sliders and tickers with built-in touch support.
 
 = Features: =
-* Very easy to use interface! Blends seamlessly with your WordPress workflow.
-* Fully responsive - will adapt to any device
-* Horizontal, vertical, and fade modes
-* Slides can contain images, video, or HTML content
-* Advanced touch / swipe support built-in
-* Uses CSS transitions for slide animation (native hardware acceleration!)
-* Small file size, fully themed, simple to implement
+* Very easy-to-use interface! Blends seamlessly with your WordPress workflow.
+* Fully responsive - will adapt to any device.
+* Horizontal, vertical, and fade modes.
+* Slides can contain images, video, or HTML content.
+* Advanced touch / swipe support built-in.
+* Uses CSS transitions for slide animation (native hardware acceleration!).
+* Small file size, fully themed, simple to implement.
 * Browser support: Firefox, Chrome, Safari, iOS, Android, IE7+
-* Tons of configuration options
+* Ability to add links to images.
+* Add multiple images at once.
+* Tons of configuration options. Checkout the screenshots.
 * It's FREE!
 
-= Homepage =
-Learn more about [BxSlider WP](http://www.codefleet.net/bxslider-wp/)
+= More Info =
+Learn more about [BxSlider WP](http://www.codefleet.net/bxslider-wp/). 
+
+= Examples =
+Check out what you can do with these [examples](http://www.codefleet.net/bxslider-wp/examples/).
+
+= Credits =
+BxSlider WP was based on [bxSlider](http://bxslider.com/) script by [Steven Wanderski](http://stevenwanderski.com/).
 
 == Installation ==
 
@@ -45,15 +53,15 @@ Learn more about [BxSlider WP](http://www.codefleet.net/bxslider-wp/)
 1. Look for "BxSlider WP" and activate it
 
 = Usage =
-1. Start adding slideshows in 'BxSlider' menu in WordPress
-1. You can then use a shortcode to display your slideshow. Example: `[bxslider id="slider-1"]`
+1. Start adding sliders in 'BxSlider' menu in WordPress
+1. You can then use a shortcode to display your slider. Example: `[bxslider id="slider-1"]`
 1. Function do_shortcode can be used inside template files. Example: `<?php echo do_shortcode('[bxslider id="slider-1"]'); ?>`
 
 
 == Frequently Asked Questions ==
 
 = How to display it in post/page? =
-Use the shortcode `[bxslider id="slider-1"]`
+Use the shortcode `[bxslider id="slider-1"]`. Make sure to change "slider-1" to the ID of your slider.
 
 = How to display it inside template files (header.php, index.php, page.php, etc.)? =
 Use `<?php echo do_shortcode('[bxslider id="slider-1"]'); ?>`
@@ -61,18 +69,43 @@ Use `<?php echo do_shortcode('[bxslider id="slider-1"]'); ?>`
 
 == Screenshots ==
 
-1. All Slideshow Screen
-2. Slideshow Editing Screen
-3. Slideshow in Action
-4. Slideshow Widget
+1. All slider Screen
+2. Slider Editing Screen
+3. Slider in Action
 
 == Changelog ==
 
-= 0.0.9 =
+= 1.3.1 - 2013-07-19 =
+* Added ability to add multiple images at once.
+* Fix slider on RTL themes.
+* Added Hebrew language files and translations.
+
+= 1.0.0 - 2013-07-11 =
+* Added ability to add links to images; and option to open a link in the same window or new tab.
+* Added ability to easily select and copy the shortcode.
+* Only load jquery easing and fitvid scripts when needed.
+* Added minified version of initialization script.
+* Updated language files.
+* Code enhancements and updated strings.
+
+= 0.0.9 - 2013-07-05 =
 * Initial released.
 
 
 == Upgrade Notice ==
 
-= 0.0.9 =
+= 1.3.1 - 2013-07-19 =
+* Added ability to add multiple images at once.
+* Fix slider on RTL themes.
+* Added Hebrew language files and translations.
+
+= 1.0.0 - 2013-07-11 =
+* Added ability to add links to images; and option to open a link in the same window or new tab.
+* Added ability to easily select and copy the shortcode.
+* Only load jquery easing and fitvid scripts when needed.
+* Added minified version of initialization script.
+* Updated language files.
+* Code enhancements and updated strings.
+
+= 0.0.9 - 2013-07-05 =
 * Initial released.

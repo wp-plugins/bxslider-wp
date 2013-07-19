@@ -89,7 +89,9 @@ if(!class_exists('Bxslider_Builder')):
                     array(
                         'new_media_gallery' => $new_media_gallery,
                         'title'     => __( 'Select an image', 'bxslider' ), // This will be used as the default title
+                        'title2'     => __( 'Select Images By Ctrl + Clicking Them', 'bxslider' ),
                         'button'    => __( 'Add to Slide', 'bxslider' ), // This will be used as the default button text
+                        'button2'    => __( 'Add Images as Slides', 'bxslider' ),
                         'jquery_easing_options' => $this->to_select_options(Bxslider_Data::get_jquery_easing_options()),
                         'css_easing_options' => $this->to_select_options(Bxslider_Data::get_css_easing_options())
                     )
@@ -199,12 +201,12 @@ if(!class_exists('Bxslider_Builder')):
                 foreach($slides as $i=>$slide):
         
                     $vars = array();
-                    
                     $vars['i'] = $i;
                     $vars['options'] = $options;
-                    $vars['slide'] = $slide;
+                    $vars['slide'] = wp_parse_args($slide, Bxslider_Data::get_slide_defaults());
                     $vars['image_url'] = $this->get_slide_img_thumb($slide['id']);
                     $vars['box_title'] = __('Slide', 'bxslider');
+                    
                     
                     $slide_view->set_vars( $vars );
                     $slides_html .= $slide_view->get_render();
@@ -212,18 +214,17 @@ if(!class_exists('Bxslider_Builder')):
             endif;
             $vars = array();
             $vars['slides'] = $slides_html;
+            $vars['post_id'] = $post->ID;
             
             $view = new Bxslider_View( BXSLIDER_PATH . 'views/slides.php' );
             $view->set_vars( $vars );
             $view->render();
 
             
-            //nix(Bxslider_Data::get_options( $post->ID ));
-           // nix(Bxslider_Data::get_slides( $post->ID ));
+            //Bxslider_Data::debug( Bxslider_Data::get_options( $post->ID ));
+            //Bxslider_Data::debug( Bxslider_Data::get_slides( $post->ID ));
         }
-        function nix($s){
-            echo '<pre>'.print_r($s, 1).'</pre>';
-        }
+        
         /**
          * Metabox for general options
          */
@@ -428,10 +429,10 @@ if(!class_exists('Bxslider_Builder')):
          */
         public function slideshow_columns($columns) {
             $columns = array();
-            $columns['title']= __('Slider Name', 'cycloneslider');
-            $columns['images']= __('Images', 'cycloneslider');
-            $columns['id']= __('Slider ID', 'cycloneslider');
-            $columns['shortcode']= __('Shortcode', 'cycloneslider');
+            $columns['title']= __('Slider Name', 'bxslider');
+            $columns['images']= __('Images', 'bxslider');
+            $columns['id']= __('Slider ID', 'bxslider');
+            $columns['shortcode']= __('Shortcode', 'bxslider');
             return $columns;
         }
         
@@ -461,12 +462,12 @@ if(!class_exists('Bxslider_Builder')):
             global $post, $post_ID;
             $messages['bxslider'] = array(
                 0  => '',
-                1  => sprintf( __( 'Slider updated. Shortcode is: [bxslider id="%s"].', 'bxslider' ), $post->post_name, $post->post_name),
+                1  => sprintf( __( 'Slider updated. Shortcode is: %s', 'bxslider'), '<input readonly onfocus="bxslider_select(this)" class="ltr" type="text" value="'.esc_attr('[bxslider id="'.$post->post_name.'"]').'">'),
                 2  => __( 'Custom field updated.', 'bxslider' ),
                 3  => __( 'Custom field deleted.', 'bxslider' ),
                 4  => __( 'Slider updated.', 'bxslider' ),
                 5  => __( 'Slider updated.', 'bxslider' ),
-                6  => sprintf( __( 'Slider published. Shortcode is: [bxslider id="%s"].', 'bxslider' ), $post->post_name, $post->post_name),
+                6  => sprintf( __( 'Slider created. Shortcode is: %s', 'bxslider'), '<input readonly onfocus="bxslider_select(this)" class="ltr" type="text" value="'.esc_attr('[bxslider id="'.$post->post_name.'"]').'">'),
                 7  => __( 'Slider saved.', 'bxslider' ),
                 8  => __( 'Slider updated.', 'bxslider' ),
                 9  => __( 'Slider updated.', 'bxslider' ),
@@ -479,6 +480,7 @@ if(!class_exists('Bxslider_Builder')):
          * Hook to admin footer  
          */
         public function admin_footer() {
+            
             // Add our slide edit skeleton for use in JS
             if(get_post_type()=='bxslider'){
 
@@ -491,6 +493,7 @@ if(!class_exists('Bxslider_Builder')):
                 $vars['image_url'] = '';
                 $vars['i'] = '{id}';
                 $vars['slide'] = $slide;
+                $vars['post_id'] = isset($_GET['post']) ? (int) $_GET['post'] : 0;
                 
                 $view = new Bxslider_View( BXSLIDER_PATH . 'views/slide-edit.php' );
                 $view->set_vars( $vars );

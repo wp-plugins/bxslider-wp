@@ -2,6 +2,14 @@
 
 <ul class="bxslider" <?php bxslider_options( $slider_id ); ?>>
     <?php foreach($slides  as $slide): ?>
-        <li><img src="<?php echo esc_url( $slide['image_url'] ); ?>" title="<?php echo esc_attr( $slide['caption'] ); ?>" /></li>
+        <?php if($slide['type'] == 'image'): ?>
+        <li>
+            <?php if ($slide['enable_link']=='true'): ?><a target="<?php echo esc_attr($slide['link_target']); ?>" href="<?php echo esc_url( $slide['link'] ); ?>"><?php endif; ?>
+            <img src="<?php echo esc_url( $slide['image_url'] ); ?>" title="<?php echo esc_attr( $slide['caption'] ); ?>" />
+            <?php if ($slide['enable_link']=='true'): ?></a><?php endif; ?>
+        </li>
+        <?php else: ?>
+        <li><?php echo $slide['custom']; ?></li>
+        <?php endif; ?>
     <?php endforeach; ?>
 </ul>

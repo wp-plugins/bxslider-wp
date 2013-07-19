@@ -3,7 +3,7 @@
 Plugin Name: BxSlider WP
 Plugin URI: http://www.codefleet.net/bxslider-wp/
 Description: Provides an easy to use interface for BxSlider that blends seamlessly with your WordPress workflow.
-Version: 0.0.9
+Version: 1.3.1
 Author: Nico Amarilla
 Author URI: http://www.codefleet.net/
 License:
@@ -25,7 +25,7 @@ License:
   
 */
 if(!defined('BXSLIDER_VERSION')){
-    define('BXSLIDER_VERSION', '0.0.9' );
+    define('BXSLIDER_VERSION', '1.3.1' );
 }
 if(!defined('BXSLIDER_PATH')){
     define('BXSLIDER_PATH', realpath(plugin_dir_path(__FILE__)) . DIRECTORY_SEPARATOR );
