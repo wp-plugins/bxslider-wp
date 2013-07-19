@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: BxSlider WP1.0.0\n"
+"Project-Id-Version: BxSlider WP\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-17 23:30+0800\n"
-"PO-Revision-Date: 2013-07-17 23:30+0800\n"
+"POT-Creation-Date: 2013-07-18 17:03+0800\n"
+"PO-Revision-Date: 2013-07-18 18:12+0800\n"
 "Last-Translator: \n"
 "Language-Team: kosinix <kosinix@codefleet.net>\n"
 "MIME-Version: 1.0\n"
@@ -11,116 +11,117 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-KeywordsList: __;_e;_x\n"
 "X-Poedit-Basepath: .\n"
-"X-Poedit-Language: English\n"
-"X-Poedit-Country: UNITED STATES\n"
+"X-Poedit-Language: Hebrew\n"
+"X-Poedit-Country: ISRAEL\n"
 "X-Poedit-SourceCharset: utf-8\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Poedit-SearchPath-0: D:\\webserver\\htdocs\\wp_dev\\bxslider-wp\\wp-content\\plugins\\bxslider-wp-pro\n"
 
 #: D:\webserver\htdocs\wp_dev\bxslider-wp\wp-content\plugins\bxslider-wp-pro/classes/class-bxslider-builder.php:91
 msgid "Select an image"
-msgstr ""
+msgstr "בחר תמונה"
 
 #: D:\webserver\htdocs\wp_dev\bxslider-wp\wp-content\plugins\bxslider-wp-pro/classes/class-bxslider-builder.php:92
 msgid "Select Images By Ctrl + Clicking Them"
-msgstr ""
+msgstr "בחר תמונות לפי Ctrl + לחיצה עליהם"
 
 #: D:\webserver\htdocs\wp_dev\bxslider-wp\wp-content\plugins\bxslider-wp-pro/classes/class-bxslider-builder.php:93
 msgid "Add to Slide"
-msgstr ""
+msgstr "הוסף לשקופית"
 
 #: D:\webserver\htdocs\wp_dev\bxslider-wp\wp-content\plugins\bxslider-wp-pro/classes/class-bxslider-builder.php:94
 #: D:\webserver\htdocs\wp_dev\bxslider-wp\wp-content\plugins\bxslider-wp-pro/views/slides.php:8
 msgid "Add Images as Slides"
-msgstr ""
+msgstr "הוסף תמונות כשקופיות"
 
 #: D:\webserver\htdocs\wp_dev\bxslider-wp\wp-content\plugins\bxslider-wp-pro/classes/class-bxslider-builder.php:113
 msgid "BxSlider"
-msgstr ""
+msgstr "BxSlider"
 
 #: D:\webserver\htdocs\wp_dev\bxslider-wp\wp-content\plugins\bxslider-wp-pro/classes/class-bxslider-builder.php:114
 msgid "Slider"
-msgstr ""
+msgstr "מחוון"
 
 #: D:\webserver\htdocs\wp_dev\bxslider-wp\wp-content\plugins\bxslider-wp-pro/classes/class-bxslider-builder.php:115
 msgid "Add Slider"
-msgstr ""
+msgstr "הוסף Slider"
 
 #: D:\webserver\htdocs\wp_dev\bxslider-wp\wp-content\plugins\bxslider-wp-pro/classes/class-bxslider-builder.php:116
 msgid "Add New Slider"
-msgstr ""
+msgstr "הוסף מחוון חדש"
 
 #: D:\webserver\htdocs\wp_dev\bxslider-wp\wp-content\plugins\bxslider-wp-pro/classes/class-bxslider-builder.php:117
 msgid "Edit Slider"
-msgstr ""
+msgstr "לערוך את המחוון"
 
 #: D:\webserver\htdocs\wp_dev\bxslider-wp\wp-content\plugins\bxslider-wp-pro/classes/class-bxslider-builder.php:118
 msgid "New Slider"
-msgstr ""
+msgstr "מחוון חדש"
 
 #: D:\webserver\htdocs\wp_dev\bxslider-wp\wp-content\plugins\bxslider-wp-pro/classes/class-bxslider-builder.php:119
 msgid "View Slider"
-msgstr ""
+msgstr "צפה במחוון"
 
 #: D:\webserver\htdocs\wp_dev\bxslider-wp\wp-content\plugins\bxslider-wp-pro/classes/class-bxslider-builder.php:120
 msgid "Search Sliders"
-msgstr ""
+msgstr "גולשים בחיפוש"
 
 #: D:\webserver\htdocs\wp_dev\bxslider-wp\wp-content\plugins\bxslider-wp-pro/classes/class-bxslider-builder.php:121
 msgid "No sliders found"
-msgstr ""
+msgstr "לא מצאו מחוונים"
 
 #: D:\webserver\htdocs\wp_dev\bxslider-wp\wp-content\plugins\bxslider-wp-pro/classes/class-bxslider-builder.php:122
 msgid "No sliders found in Trash"
-msgstr ""
+msgstr "אין מחוונים מצאו באשפה"
 
 #: D:\webserver\htdocs\wp_dev\bxslider-wp\wp-content\plugins\bxslider-wp-pro/classes/class-bxslider-builder.php:141
 msgid "Slides"
-msgstr ""
+msgstr "Slides"
 
 #: D:\webserver\htdocs\wp_dev\bxslider-wp\wp-content\plugins\bxslider-wp-pro/classes/class-bxslider-builder.php:149
 msgid "General Options"
-msgstr ""
+msgstr "אפשרויות כלליות"
 
 #: D:\webserver\htdocs\wp_dev\bxslider-wp\wp-content\plugins\bxslider-wp-pro/classes/class-bxslider-builder.php:157
 msgid "Pager Options"
-msgstr ""
+msgstr "אפשרויות זימונית"
 
 #: D:\webserver\htdocs\wp_dev\bxslider-wp\wp-content\plugins\bxslider-wp-pro/classes/class-bxslider-builder.php:165
 msgid "Controls Options"
-msgstr ""
+msgstr "אפשרויות בקרה"
 
 #: D:\webserver\htdocs\wp_dev\bxslider-wp\wp-content\plugins\bxslider-wp-pro/classes/class-bxslider-builder.php:173
 msgid "Auto Options"
-msgstr ""
+msgstr "אפשרויות אוטומטיות"
 
 #: D:\webserver\htdocs\wp_dev\bxslider-wp\wp-content\plugins\bxslider-wp-pro/classes/class-bxslider-builder.php:181
 msgid "Carousel Options"
-msgstr ""
+msgstr "אפשרויות קרוסלה"
 
 #: D:\webserver\htdocs\wp_dev\bxslider-wp\wp-content\plugins\bxslider-wp-pro/classes/class-bxslider-builder.php:208
 msgid "Slide"
-msgstr ""
+msgstr "Slide"
 
 #: D:\webserver\htdocs\wp_dev\bxslider-wp\wp-content\plugins\bxslider-wp-pro/classes/class-bxslider-builder.php:432
 msgid "Slider Name"
-msgstr ""
+msgstr "שם מחוון"
 
 #: D:\webserver\htdocs\wp_dev\bxslider-wp\wp-content\plugins\bxslider-wp-pro/classes/class-bxslider-builder.php:433
 msgid "Images"
-msgstr ""
+msgstr "תמונות"
 
 #: D:\webserver\htdocs\wp_dev\bxslider-wp\wp-content\plugins\bxslider-wp-pro/classes/class-bxslider-builder.php:434
 msgid "Slider ID"
-msgstr ""
+msgstr "מחוון ID"
 
 #: D:\webserver\htdocs\wp_dev\bxslider-wp\wp-content\plugins\bxslider-wp-pro/classes/class-bxslider-builder.php:435
 msgid "Shortcode"
-msgstr ""
+msgstr "Shortcode"
 
 #: D:\webserver\htdocs\wp_dev\bxslider-wp\wp-content\plugins\bxslider-wp-pro/classes/class-bxslider-builder.php:465
 #, php-format
 msgid "Slider updated. Shortcode is: %s"
-msgstr ""
+msgstr "Slider עודכ. Shortcode: %s"
 
 #: D:\webserver\htdocs\wp_dev\bxslider-wp\wp-content\plugins\bxslider-wp-pro/classes/class-bxslider-builder.php:466
 msgid "Custom field updated."
@@ -141,7 +142,7 @@ msgstr ""
 #: D:\webserver\htdocs\wp_dev\bxslider-wp\wp-content\plugins\bxslider-wp-pro/classes/class-bxslider-builder.php:470
 #, php-format
 msgid "Slider created. Shortcode is: %s"
-msgstr ""
+msgstr "Slider נוצר. Shortcode: %s"
 
 #: D:\webserver\htdocs\wp_dev\bxslider-wp\wp-content\plugins\bxslider-wp-pro/classes/class-bxslider-builder.php:471
 msgid "Slider saved."
@@ -334,7 +335,7 @@ msgstr ""
 
 #: D:\webserver\htdocs\wp_dev\bxslider-wp\wp-content\plugins\bxslider-wp-pro/views/general-options.php:6
 msgid "Mode:"
-msgstr ""
+msgstr "סִגְנוֹן"
 
 #: D:\webserver\htdocs\wp_dev\bxslider-wp\wp-content\plugins\bxslider-wp-pro/views/general-options.php:12
 msgid "Type of transition between slides."
@@ -342,7 +343,7 @@ msgstr ""
 
 #: D:\webserver\htdocs\wp_dev\bxslider-wp\wp-content\plugins\bxslider-wp-pro/views/general-options.php:16
 msgid "Speed:"
-msgstr ""
+msgstr "מהירות"
 
 #: D:\webserver\htdocs\wp_dev\bxslider-wp\wp-content\plugins\bxslider-wp-pro/views/general-options.php:18
 msgid "Slide transition duration (in ms)."
@@ -542,73 +543,73 @@ msgstr ""
 
 #: D:\webserver\htdocs\wp_dev\bxslider-wp\wp-content\plugins\bxslider-wp-pro/views/pager-options.php:27
 msgid "Pager Selector:"
-msgstr ""
+msgstr "Pager Selector"
 
 #: D:\webserver\htdocs\wp_dev\bxslider-wp\wp-content\plugins\bxslider-wp-pro/views/pager-options.php:29
 msgid "Element used to populate the pager. By default, the pager is appended to the bx-viewport. Note: Use jQuery selectors."
-msgstr ""
+msgstr "אלמנט jQuery משמש לאכלוס הביפר."
 
 #: D:\webserver\htdocs\wp_dev\bxslider-wp\wp-content\plugins\bxslider-wp-pro/views/slide-edit.php:18
 msgid "Drag"
-msgstr ""
+msgstr "לגרור"
 
 #: D:\webserver\htdocs\wp_dev\bxslider-wp\wp-content\plugins\bxslider-wp-pro/views/slide-edit.php:19
 msgid "Toggle"
-msgstr ""
+msgstr "למתג"
 
 #: D:\webserver\htdocs\wp_dev\bxslider-wp\wp-content\plugins\bxslider-wp-pro/views/slide-edit.php:20
 msgid "Delete"
-msgstr ""
+msgstr "למחוק"
 
 #: D:\webserver\htdocs\wp_dev\bxslider-wp\wp-content\plugins\bxslider-wp-pro/views/slide-edit.php:27
 msgid "Image"
-msgstr ""
+msgstr "תמונה"
 
 #: D:\webserver\htdocs\wp_dev\bxslider-wp\wp-content\plugins\bxslider-wp-pro/views/slide-edit.php:28
 msgid "Custom"
-msgstr ""
+msgstr "יְחִידָאִי"
 
 #: D:\webserver\htdocs\wp_dev\bxslider-wp\wp-content\plugins\bxslider-wp-pro/views/slide-edit.php:41
 msgid "Get Image"
-msgstr ""
+msgstr "קבל תמונה"
 
 #: D:\webserver\htdocs\wp_dev\bxslider-wp\wp-content\plugins\bxslider-wp-pro/views/slide-edit.php:44
 msgid "Slide Properties:"
-msgstr ""
+msgstr "מאפייני שקופיות"
 
 #: D:\webserver\htdocs\wp_dev\bxslider-wp\wp-content\plugins\bxslider-wp-pro/views/slide-edit.php:46
 msgid "Link"
-msgstr ""
+msgstr "קֶשֶׁר"
 
 #: D:\webserver\htdocs\wp_dev\bxslider-wp\wp-content\plugins\bxslider-wp-pro/views/slide-edit.php:49
 msgid "Enable Link:"
-msgstr ""
+msgstr "לאפשר קישור"
 
 #: D:\webserver\htdocs\wp_dev\bxslider-wp\wp-content\plugins\bxslider-wp-pro/views/slide-edit.php:54
 msgid "Link URL:"
-msgstr ""
+msgstr "כתובת אתר של קישור"
 
 #: D:\webserver\htdocs\wp_dev\bxslider-wp\wp-content\plugins\bxslider-wp-pro/views/slide-edit.php:58
 msgid "Open Link in:"
-msgstr ""
+msgstr "פתח בקישור"
 
 #: D:\webserver\htdocs\wp_dev\bxslider-wp\wp-content\plugins\bxslider-wp-pro/views/slide-edit.php:60
 msgid "Same Window"
-msgstr ""
+msgstr "אותו החלון"
 
 #: D:\webserver\htdocs\wp_dev\bxslider-wp\wp-content\plugins\bxslider-wp-pro/views/slide-edit.php:61
 msgid "New Tab or Window"
-msgstr ""
+msgstr "לשונית חדשה או בחלון"
 
 #: D:\webserver\htdocs\wp_dev\bxslider-wp\wp-content\plugins\bxslider-wp-pro/views/slide-edit.php:67
 msgid "Caption"
-msgstr ""
+msgstr "רֹאשׁ עַמוּד"
 
 #: D:\webserver\htdocs\wp_dev\bxslider-wp\wp-content\plugins\bxslider-wp-pro/views/slide-edit.php:79
 msgid "Custom HTML"
-msgstr ""
+msgstr "המותאם אישית HTML"
 
 #: D:\webserver\htdocs\wp_dev\bxslider-wp\wp-content\plugins\bxslider-wp-pro/views/slides.php:7
 msgid "Add Slide"
-msgstr ""
+msgstr "הוסף Slide"
 

@@ -18,12 +18,13 @@ Provides an easy-to-use interface for building responsive sliders and tickers wi
 * Very easy-to-use interface! Blends seamlessly with your WordPress workflow.
 * Fully responsive - will adapt to any device.
 * Horizontal, vertical, and fade modes.
-* Slides can contain images, video, or HTML content
+* Slides can contain images, video, or HTML content.
 * Advanced touch / swipe support built-in.
 * Uses CSS transitions for slide animation (native hardware acceleration!).
 * Small file size, fully themed, simple to implement.
 * Browser support: Firefox, Chrome, Safari, iOS, Android, IE7+
-* Ability to add links to images
+* Ability to add links to images.
+* Add multiple images at once.
 * Tons of configuration options. Checkout the screenshots.
 * It's FREE!
 
@@ -71,9 +72,13 @@ Use `<?php echo do_shortcode('[bxslider id="slider-1"]'); ?>`
 1. All slider Screen
 2. Slider Editing Screen
 3. Slider in Action
-4. Slider Widget
 
 == Changelog ==
+
+= 1.3.1 - 2013-07-19 =
+* Added ability to add multiple images at once.
+* Fix slider on RTL themes.
+* Added Hebrew language files and translations.
 
 = 1.0.0 - 2013-07-11 =
 * Added ability to add links to images; and option to open a link in the same window or new tab.
@@ -88,6 +93,11 @@ Use `<?php echo do_shortcode('[bxslider id="slider-1"]'); ?>`
 
 
 == Upgrade Notice ==
+
+= 1.3.1 - 2013-07-19 =
+* Added ability to add multiple images at once.
+* Fix slider on RTL themes.
+* Added Hebrew language files and translations.
 
 = 1.0.0 - 2013-07-11 =
 * Added ability to add links to images; and option to open a link in the same window or new tab.

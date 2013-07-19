@@ -26,12 +26,6 @@
 	display: block;
 }
 
-.bxslider,
-.bxslider li{
-	margin: 0;
-	padding: 0;
-}
-
 /** THEME
 ===================================*/
 
@@ -200,4 +194,26 @@
 	display: block;
 	font-size: .85em;
 	padding: 10px;
+}
+
+
+/** BxSlider WP Overrides
+===================================*/
+.bxslider, /* Normalize for twentytwelve */
+.bxslider li{
+	margin: 0;
+	padding: 0;
+}
+body.rtl .bx-wrapper{
+	direction: ltr; /* Fix issue on RTL */
+}
+body.rtl .bx-caption{
+	text-align: right;
+	direction: rtl; /* Fix issue on RTL */
+}
+body.rtl .bx-wrapper .bx-pager.bx-default-pager a,
+body.rtl .bx-wrapper .bx-controls-direction a,
+body.rtl .bx-wrapper .bx-controls-auto .bx-start,
+body.rtl .bx-wrapper .bx-controls-auto .bx-stop{
+	text-indent: 9999px; /* Hide on RTL */
 }
