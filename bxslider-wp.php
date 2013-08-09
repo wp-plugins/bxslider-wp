@@ -3,7 +3,7 @@
 Plugin Name: BxSlider WP
 Plugin URI: http://www.codefleet.net/bxslider-wp/
 Description: Provides an easy to use interface for BxSlider that blends seamlessly with your WordPress workflow.
-Version: 1.3.1
+Version: 1.3.2
 Author: Nico Amarilla
 Author URI: http://www.codefleet.net/
 License:
@@ -25,7 +25,7 @@ License:
   
 */
 if(!defined('BXSLIDER_VERSION')){
-    define('BXSLIDER_VERSION', '1.3.1' );
+    define('BXSLIDER_VERSION', '1.3.2' );
 }
 if(!defined('BXSLIDER_PATH')){
     define('BXSLIDER_PATH', realpath(plugin_dir_path(__FILE__)) . DIRECTORY_SEPARATOR );
@@ -34,34 +34,42 @@ if(!defined('BXSLIDER_URL')){
     define('BXSLIDER_URL', plugin_dir_url(__FILE__) );
 }
 
-require_once(BXSLIDER_PATH.'classes/class-bxslider-view.php');
+// Include common classes
+require_once(BXSLIDER_PATH.'classes/codefleet/class-codefleet-view.php');
+
+// Include this plugin's classes
 require_once(BXSLIDER_PATH.'classes/class-bxslider-data.php');
-require_once(BXSLIDER_PATH.'classes/class-bxslider-builder.php');
+require_once(BXSLIDER_PATH.'classes/class-bxslider-admin.php');
 require_once(BXSLIDER_PATH.'classes/class-bxslider-slider.php');
 
 $bxslider_saved_done = false; //Global variable to limit save_post execution to only once
 
-if(class_exists('Bxslider_Builder')):
+// Load domain in this hook to work with WPML
+add_action('plugins_loaded', 'bxslider_plugin_init');
+function bxslider_plugin_init() {
     // Load language files
-    load_plugin_textdomain( 'bxslider', false, 'bxslider-wp/lang' );
-    
-    // Load classes
-    $bxslider_data_instance = new Bxslider_Data();
-    $bxslider_builder_instance = new Bxslider_Builder(); //Store the plugin instance to a global object so that other plugins can use remove_action and remove_filter against class functions if needed.
-    $bxslider_slider_instance = new Bxslider_Slider();
-endif;
-
-/**
- * Function that adds data attributes to the slider to be used by the initialization script
- *
- * @param int $slider_id - Slider custom post ID
- */
-function bxslider_options($slider_id){
-    $options = Bxslider_Data::get_options( $slider_id );
-    $out = ' ';
-    foreach($options as $name=>$option){
-        $out .= 'data-bxslider-'.str_replace('_', '-', $name).'="'.$option.'"';
-    }
-    $out.=' ';
-    echo $out;
+    load_plugin_textdomain( 'bxslider', false, basename(dirname(__FILE__)).'/lang' );
 }
+
+// Store the plugins instance to a global objects so that filter and actions can be overidden.
+$bxslider_data_instance = new Bxslider_Data();
+$bxslider_admin_instance = new Bxslider_Admin( new Codefleet_View( '' ) ); // Inject our view manager 
+$bxslider_slider_instance = new Bxslider_Slider( new Codefleet_View( '' ) );
+
+// Prevent conflicts in global space
+if(!function_exists('bxslider_options')):
+    /**
+     * Function that adds data attributes to the slider to be used by the initialization script
+     *
+     * @param int $slider_id - Slider custom post ID
+     */
+    function bxslider_options($slider_id){
+        $options = Bxslider_Data::get_options( $slider_id );
+        $out = ' ';
+        foreach($options as $name=>$option){
+            $out .= 'data-bxslider-'.str_replace('_', '-', $name).'="'.$option.'"';
+        }
+        $out.=' ';
+        echo $out;
+    }
+endif;

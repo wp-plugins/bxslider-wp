@@ -6,14 +6,19 @@ if(!class_exists('Bxslider_Slider')):
     */
     class Bxslider_Slider {
         
-        public $slider_view_path;
+        private $view; // Our view manager
+        public $initialize_script_url; // Allow this to be overridden
+        public $slider_view_path; // Allow this to be overridden
         
         /**
          * Initializes 
          */
-        public function __construct() {
+        public function __construct( $view ) {
+            
+            $this->view = $view;
             
             $this->slider_view_path = BXSLIDER_PATH . 'views/slider.php';
+            $this->initialize_script_url = BXSLIDER_URL.'js/initialize.min.js';
             
             // Register frontend styles and scripts
             add_action( 'wp_enqueue_scripts', array( $this, 'register_plugin_scripts' ), 100 );
@@ -54,7 +59,7 @@ if(!class_exists('Bxslider_Slider')):
                 wp_enqueue_script( 'fitvids', BXSLIDER_URL.'bxslider/plugins/jquery.fitvids.js', array('jquery'), BXSLIDER_VERSION );
             }
             wp_enqueue_script( 'bxslider', BXSLIDER_URL.'bxslider/jquery.bxslider.min.js', array('jquery'), BXSLIDER_VERSION ); 
-            wp_enqueue_script( 'bxslider-initialize', BXSLIDER_URL.'js/initialize.min.js', array('bxslider'), BXSLIDER_VERSION );
+            wp_enqueue_script( 'bxslider-initialize', $this->initialize_script_url, array('bxslider'), BXSLIDER_VERSION );
             
             
             
@@ -93,9 +98,10 @@ if(!class_exists('Bxslider_Slider')):
                     $image_url = (is_array($image_url)) ? $image_url[0] : '';
                     $vars['slides'][$i]['image_url'] = $image_url;
                 }
-                $view = new Bxslider_View( $this->slider_view_path );
-                $view->set_vars( $vars );
-                $output = $view->get_render();
+                $view_path = apply_filters('bxslider_view_path', $this->slider_view_path, $slider->post_name, $options, $slides);
+                $this->view->set_view_file( $view_path );
+                $this->view->set_vars( $vars );
+                $output = $this->view->get_render();
             } else {
                 $output = sprintf(__('[Slider "%s" not found]', 'bxslider'), $name);
             }

@@ -189,7 +189,7 @@ if(!class_exists('Bxslider_Data')):
                 'slide_selector' => '',
                 'infinite_loop' => 'true',
                 'hide_control_on_end' => 'false',
-                'captions' => 'false',
+                'captions' => 'true',
                 'ticker' => 'false',
                 'ticker_hover' => 'false',
                 'adaptive_height' => 'false',

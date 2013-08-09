@@ -1,10 +1,10 @@
 <?php
-if(!class_exists('Bxslider_View')):
+if(!class_exists('Codefleet_View')):
 	
 	/**
-	* Class for fetching view files via include
+	* Class for conveniently fetching template files and attaching template variables
 	*/
-	class Bxslider_View {
+	class Codefleet_View {
         
 		protected $view_file;
 		protected $vars = array();
@@ -12,7 +12,7 @@ if(!class_exists('Bxslider_View')):
         /**
         * Constructor
         */  
-        public function __construct( $view_file ){
+        public function __construct( $view_file='' ){
 			$this->view_file = $view_file;
 		}
         

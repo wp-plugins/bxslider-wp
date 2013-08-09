@@ -1,4 +1,4 @@
-<?php if(!defined('BXSLIDER_PATH')) die('Direct access denied.'); ?>
+<?php if(!defined('ABSPATH')) die('Direct access denied.'); ?>
 
 <div class="bxslider-sortables" data-post-id="<?php echo $post_id; ?>">
 	<?php echo $slides; ?>
