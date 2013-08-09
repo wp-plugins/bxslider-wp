@@ -1,20 +1,23 @@
 <?php
-if(!class_exists('Bxslider_Builder')):
+if(!class_exists('Bxslider_Admin')):
 
     /**
      * Class that handles the slideshow admin pages 
      */
-    class Bxslider_Builder {
+    class Bxslider_Admin {
         
         private $debug;
         private $nonce_name;
         private $nonce_action;
+        private $view; // Our view manager
         
         /**
          * Initializes the plugin
          */
-        public function __construct(){
+        public function __construct( $view ){
             $this->debug = true;
+            
+            $this->view = $view;
             
             // Intialize properties
             $this->nonce_name = 'bxslider_builder_nonce'; //Must match with the one in class-bxslider-data.php
@@ -107,6 +110,7 @@ if(!class_exists('Bxslider_Builder')):
          * Create custom post for slideshows
          */
         public function create_post_types() {
+            
             register_post_type( 'bxslider',
                 array(
                     'labels' => array(
@@ -197,7 +201,8 @@ if(!class_exists('Bxslider_Builder')):
             $slides_html = '';
             
             if(is_array($slides) and count($slides)>0):
-                $slide_view = new Bxslider_View( BXSLIDER_PATH . 'views/slide-edit.php' );
+                
+                $this->view->set_view_file(BXSLIDER_PATH . 'views/slide-edit.php');
                 foreach($slides as $i=>$slide):
         
                     $vars = array();
@@ -208,17 +213,17 @@ if(!class_exists('Bxslider_Builder')):
                     $vars['box_title'] = __('Slide', 'bxslider');
                     
                     
-                    $slide_view->set_vars( $vars );
-                    $slides_html .= $slide_view->get_render();
+                    $this->view->set_vars( $vars );
+                    $slides_html .= $this->view->get_render();
                 endforeach;
             endif;
             $vars = array();
             $vars['slides'] = $slides_html;
             $vars['post_id'] = $post->ID;
             
-            $view = new Bxslider_View( BXSLIDER_PATH . 'views/slides.php' );
-            $view->set_vars( $vars );
-            $view->render();
+            $this->view->set_view_file( BXSLIDER_PATH . 'views/slides.php' );
+            $this->view->set_vars( $vars );
+            $this->view->render();
 
             
             //Bxslider_Data::debug( Bxslider_Data::get_options( $post->ID ));
@@ -286,9 +291,9 @@ if(!class_exists('Bxslider_Builder')):
             }
             $vars['preload_images_options'] = $preload_images_options;
             
-            $view = new Bxslider_View( BXSLIDER_PATH . 'views/general-options.php' );
-			$view->set_vars( $vars );
-			$view->render();
+            $this->view->set_view_file( BXSLIDER_PATH . 'views/general-options.php' );
+			$this->view->set_vars( $vars );
+			$this->view->render();
 
         }
         
@@ -320,9 +325,9 @@ if(!class_exists('Bxslider_Builder')):
             }
             $vars['pager_type_options'] = $pager_type_options;
             
-            $view = new Bxslider_View( BXSLIDER_PATH . 'views/pager-options.php' );
-			$view->set_vars( $vars );
-			$view->render();
+            $this->view->set_view_file( BXSLIDER_PATH . 'views/pager-options.php' );
+			$this->view->set_vars( $vars );
+			$this->view->render();
         }
         
         /**
@@ -353,9 +358,9 @@ if(!class_exists('Bxslider_Builder')):
             }
             $vars['auto_controls_options'] = $auto_controls_options;
             
-            $view = new Bxslider_View( BXSLIDER_PATH . 'views/controls-options.php' );
-			$view->set_vars( $vars );
-			$view->render();
+            $this->view->set_view_file( BXSLIDER_PATH . 'views/controls-options.php' );
+			$this->view->set_vars( $vars );
+			$this->view->render();
         }
         
         /**
@@ -386,9 +391,9 @@ if(!class_exists('Bxslider_Builder')):
             }
             $vars['auto_direction_options'] = $auto_direction_options;
             
-            $view = new Bxslider_View( BXSLIDER_PATH . 'views/auto-options.php' );
-			$view->set_vars( $vars );
-			$view->render();
+            $this->view->set_view_file( BXSLIDER_PATH . 'views/auto-options.php' );
+			$this->view->set_vars( $vars );
+			$this->view->render();
         }
         
         /**
@@ -419,9 +424,9 @@ if(!class_exists('Bxslider_Builder')):
             }
             $vars['auto_controls_options'] = $auto_controls_options;
             
-            $view = new Bxslider_View( BXSLIDER_PATH . 'views/carousel-options.php' );
-			$view->set_vars( $vars );
-			$view->render();
+            $this->view->set_view_file( BXSLIDER_PATH . 'views/carousel-options.php' );
+			$this->view->set_vars( $vars );
+			$this->view->render();
         }
         
         /**
@@ -495,12 +500,12 @@ if(!class_exists('Bxslider_Builder')):
                 $vars['slide'] = $slide;
                 $vars['post_id'] = isset($_GET['post']) ? (int) $_GET['post'] : 0;
                 
-                $view = new Bxslider_View( BXSLIDER_PATH . 'views/slide-edit.php' );
-                $view->set_vars( $vars );
+                $this->view->set_view_file( BXSLIDER_PATH . 'views/slide-edit.php' );
+                $this->view->set_vars( $vars );
             ?>
                 <div class="bxslider-slide-skeleton">
                     <?php
-                    $view->render();
+                    $this->view->render();
                     ?>
                 </div><!-- end .bxslider-box-template -->
             <?php

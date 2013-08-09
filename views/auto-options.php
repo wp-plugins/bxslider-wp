@@ -1,4 +1,4 @@
-<?php if(!defined('BXSLIDER_PATH')) die('Direct access denied.'); ?>
+<?php if(!defined('ABSPATH')) die('Direct access denied.'); ?>
 <div class="bxslider-cover"><p>Available in <a href="http://www.codefleet.net/bxslider-wp/">premium</a> version.</p></div>
 <div class="bxslider-field">
 	<label for="bxslider_options_auto"><?php _e('Auto:', 'bxslider'); ?> </label>

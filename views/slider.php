@@ -1,4 +1,4 @@
-<?php if(!defined('BXSLIDER_PATH')) die('Direct access denied.'); ?>
+<?php if(!defined('ABSPATH')) die('Direct access denied.'); ?>
 
 <ul class="bxslider" <?php bxslider_options( $slider_id ); ?>>
     <?php foreach($slides  as $slide): ?>

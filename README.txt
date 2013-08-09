@@ -2,9 +2,9 @@
 Contributors: kosinix
 Donate link: http://www.codefleet.net/donate/
 Tags: bxslider, wordpress, slider, slideshow, carousel, jquery, responsive, multilingual, custom post
-Requires at least: 3.3.2
-Tested up to: 3.5.1
-Stable tag: 1.0.0
+Requires at least: 3.5
+Tested up to: 3.6
+Stable tag: 1.3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -75,6 +75,15 @@ Use `<?php echo do_shortcode('[bxslider id="slider-1"]'); ?>`
 
 == Changelog ==
 
+= 1.3.2 - 2013-08-09 =
+* Normalized css for twentytwelve and twentythirteen themes.
+* Added styles to prevent FOUC (flash of unstyled content).
+* Caption option now defaults to true.
+* Add function check to prevent "function already exists" conflict with premium version.
+* Fix for WPMU by loading language in plugins_loaded hook.
+* Check for ABSPATH in template views.
+* Allowed slider script and view path to be easily overridden in functions.php.
+
 = 1.3.1 - 2013-07-19 =
 * Added ability to add multiple images at once.
 * Fix slider on RTL themes.
@@ -93,6 +102,15 @@ Use `<?php echo do_shortcode('[bxslider id="slider-1"]'); ?>`
 
 
 == Upgrade Notice ==
+
+= 1.3.2 - 2013-08-09 =
+* Normalized css for twentytwelve and twentythirteen themes.
+* Added styles to prevent FOUC (flash of unstyled content).
+* Caption option now defaults to true.
+* Add function check to prevent "function already exists" conflict with premium version.
+* Fix for WPMU by loading language in plugins_loaded hook.
+* Check for ABSPATH in template views.
+* Allowed slider script and view path to be easily overridden in functions.php.
 
 = 1.3.1 - 2013-07-19 =
 * Added ability to add multiple images at once.

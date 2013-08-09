@@ -2,6 +2,11 @@
 	clear:both;
 }
 
+/*** Add extra space in wp 3.6 ***/
+.version-3-6 #titlediv{
+	margin-bottom: 20px;
+}
+
 /*** Reset metaboxes ***/
 #bxslider-general-options-meta-box .inside,
 #bxslider-pager-options-meta-box .inside,

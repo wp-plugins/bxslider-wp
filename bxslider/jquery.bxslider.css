@@ -199,10 +199,30 @@
 
 /** BxSlider WP Overrides
 ===================================*/
+.bxslider,
+.entry-content .bxslider{
+	list-style: none;
+	position: relative;
+}
+.bx-wrapper
+.bx-viewport, /* Normalize for twentythirteen */
+.bxslider,
+.bxslider li,
+.bxslider .bx-caption span{
+	box-sizing: content-box;
+}
 .bxslider, /* Normalize for twentytwelve */
 .bxslider li{
 	margin: 0;
 	padding: 0;
+}
+.bxslider li{
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+.bxslider li:first-child{
+	position: static;
 }
 body.rtl .bx-wrapper{
 	direction: ltr; /* Fix issue on RTL */
