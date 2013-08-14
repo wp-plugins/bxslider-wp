@@ -149,6 +149,14 @@ if(!class_exists('Bxslider_Admin')):
                 'high'
             );
             add_meta_box(
+                'bxslider-slider-codes',
+                __('Get Slider Codes', 'bxslider'),
+                array( $this, 'render_slider_codes' ),
+                'bxslider' ,
+                'side',
+                'low'
+            );
+            add_meta_box(
                 'bxslider-general-options-meta-box',
                 __('General Options', 'bxslider'),
                 array( $this, 'render_general_options_meta_box' ),
@@ -231,12 +239,33 @@ if(!class_exists('Bxslider_Admin')):
         }
         
         /**
+         * Metabox for slider codes
+         */
+        public function render_slider_codes( $post ){
+            
+            $this->view->set_view_file( BXSLIDER_PATH . 'views/slider-codes.php' );
+            
+            $vars = array();
+            $vars['post'] = $post;
+            if(empty($post->post_name)){
+                $vars['shortcode'] = '';
+                $vars['template_code'] = '';
+            } else {
+                $vars['shortcode'] = '[bxslider id="'.$post->post_name.'"]';
+                $vars['template_code'] = '<?php if( function_exists(\'bxslider\') ) bxslider(\''.$post->post_name.'\'); ?>';
+            }
+            $this->view->set_vars( $vars );
+            $this->view->render();
+
+        }
+        
+        /**
          * Metabox for general options
          */
         public function render_general_options_meta_box( $post ){
             
             $options = Bxslider_Data::get_options( $post->ID );
-            //$this->nix($options);
+
             $vars = array();
             $vars['options'] = $options;
             $vars['nonce_name'] = $this->nonce_name;
@@ -467,12 +496,12 @@ if(!class_exists('Bxslider_Admin')):
             global $post, $post_ID;
             $messages['bxslider'] = array(
                 0  => '',
-                1  => sprintf( __( 'Slider updated. Shortcode is: %s', 'bxslider'), '<input readonly onfocus="bxslider_select(this)" class="ltr" type="text" value="'.esc_attr('[bxslider id="'.$post->post_name.'"]').'">'),
+                1  => __( 'Slider updated.', 'bxslider' ),
                 2  => __( 'Custom field updated.', 'bxslider' ),
                 3  => __( 'Custom field deleted.', 'bxslider' ),
                 4  => __( 'Slider updated.', 'bxslider' ),
                 5  => __( 'Slider updated.', 'bxslider' ),
-                6  => sprintf( __( 'Slider created. Shortcode is: %s', 'bxslider'), '<input readonly onfocus="bxslider_select(this)" class="ltr" type="text" value="'.esc_attr('[bxslider id="'.$post->post_name.'"]').'">'),
+                6  => __( 'Slider created.', 'bxslider' ),
                 7  => __( 'Slider saved.', 'bxslider' ),
                 8  => __( 'Slider updated.', 'bxslider' ),
                 9  => __( 'Slider updated.', 'bxslider' ),
