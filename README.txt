@@ -75,6 +75,11 @@ Use `<?php echo do_shortcode('[bxslider id="slider-1"]'); ?>`
 
 == Changelog ==
 
+= 1.3.3 - 2013-08-14 =
+* Added metabox to easily grab slider codes.
+* Added function bxslider to display slider in template files.
+* Fix readme grammar.
+
 = 1.3.2 - 2013-08-09 =
 * Normalized css for twentytwelve and twentythirteen themes.
 * Added styles to prevent FOUC (flash of unstyled content).
@@ -98,11 +103,16 @@ Use `<?php echo do_shortcode('[bxslider id="slider-1"]'); ?>`
 * Code enhancements and updated strings.
 
 = 0.0.9 - 2013-07-05 =
-* Initial released.
+* Initial release.
 
 
 == Upgrade Notice ==
 
+= 1.3.3 - 2013-08-14 =
+* Added metabox to easily grab slider codes.
+* Added function bxslider to display slider in template files.
+* Fix readme grammar.
+
 = 1.3.2 - 2013-08-09 =
 * Normalized css for twentytwelve and twentythirteen themes.
 * Added styles to prevent FOUC (flash of unstyled content).
@@ -126,4 +136,4 @@ Use `<?php echo do_shortcode('[bxslider id="slider-1"]'); ?>`
 * Code enhancements and updated strings.
 
 = 0.0.9 - 2013-07-05 =
-* Initial released.
+* Initial release.
