@@ -3,7 +3,7 @@ Contributors: kosinix
 Donate link: http://www.codefleet.net/donate/
 Tags: bxslider, wordpress, slider, slideshow, carousel, jquery, responsive, multilingual, custom post
 Requires at least: 3.5
-Tested up to: 3.6
+Tested up to: 3.9.2
 Stable tag: 1.3.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -30,6 +30,9 @@ Provides an easy-to-use interface for building responsive sliders and tickers wi
 
 = More Info =
 Learn more about [BxSlider WP](http://www.codefleet.net/bxslider-wp/). 
+
+= Premium Version =
+BxSlider WP Pro is the premium version of BxSlider WP which allows more configuration options. Checkout the [comparison table](http://www.codefleet.net/bxslider-wp/#comparison).
 
 = Examples =
 Check out what you can do with these [examples](http://www.codefleet.net/bxslider-wp/examples/).
@@ -74,6 +77,12 @@ Use `<?php echo do_shortcode('[bxslider id="slider-1"]'); ?>`
 3. Slider in Action
 
 == Changelog ==
+
+= 1.4.0 - 2014-08-30 =
+* Major code refactoring and clean-up for future updates. Plugin now easily overridable. 
+* Activating free and pro at the same time will not trigger an error. Pro will just override it. Both versions should be 1.4.0 or greater for this to work.
+* Updated bxslider scripts to 4.1.2.
+* Fix bug when using horizontal mode when using CSS transitions ("Use CSS" checked in settings). 
 
 = 1.3.3 - 2013-08-14 =
 * Added metabox to easily grab slider codes.
