@@ -58,6 +58,41 @@ class Codefleet_BxSlider_Data {
 		}
 	}
 	
+	public function get_slider_render($slider_slug, $slider_view) {
+		
+		$name = esc_attr($slider_slug);// Slideshow slug or ID
+
+		$output = '';
+		
+		if( $slider = $this->get_slider_by_name( $name ) ){
+
+			$slides = $this->get_slides( $slider->ID );
+			$options = $this->get_options( $slider->ID );
+			
+			$vars = array();
+			$vars['slides'] = $slides;
+			$vars['options'] = $options;
+			$vars['slider_id'] = $slider->ID;
+			
+			foreach($vars['slides'] as $i=>$slide){
+				$vars['slides'][$i] = wp_parse_args($slide, $this->get_slide_defaults()); //Apply defaults in case some keys are missing
+				$image_url = wp_get_attachment_image_src( $slide['id'], 'full' );
+				$image_url = (is_array($image_url)) ? $image_url[0] : '';
+				$vars['slides'][$i]['image_url'] = $image_url;
+			}
+			
+			$slider_view->set_vars( $vars );
+			$output = $slider_view->get_render();
+			
+		} else {
+			
+			$output = sprintf(__('[Slider "%s" not found]', 'bxslider'), $name);
+			
+		}
+		
+		return $output;
+	}
+	
 	/**
 	 * Gets the slider settings. Defaults and filters are applied.
 	 *

@@ -3,7 +3,7 @@
 Plugin Name: BxSlider WP
 Plugin URI: http://www.codefleet.net/bxslider-wp/
 Description: Provides an easy to use interface for BxSlider that blends seamlessly with your WordPress workflow.
-Version: 1.4.0
+Version: 1.4.1
 Author: Nico Amarilla
 Author URI: http://www.codefleet.net/
 License:
@@ -29,7 +29,7 @@ License:
 add_action('plugins_loaded', 'bxslider_plugin_init');
 function bxslider_plugin_init() {
     
-    $version = '1.4.0'; // Must match the version in the header of the plugin file
+    $version = '1.4.1'; // Must match the version in the header of the plugin file
     $path = realpath(plugin_dir_path(__FILE__)) . DIRECTORY_SEPARATOR ; // Path to plugin folder with trailing dir sep
     $url = plugin_dir_url(__FILE__); // URL to plugin folder
     $textdomain = 'bxslider'; // Language textdomain
@@ -94,9 +94,10 @@ function bxslider_plugin_init() {
         * @param string $slider_slug The slug of the slider.
         */
         function bxslider( $slider_slug ){
-            global $bxslider_slider_instance;
-            if(isset($bxslider_slider_instance)){
-                echo $bxslider_slider_instance->bxslider_shortcode( array('id'=>$slider_slug) );
+            $codefleet_bxslider_data = new Codefleet_BxSlider_Data();
+            $slider_view = new Codefleet_Common_View(realpath(plugin_dir_path(__FILE__)). DIRECTORY_SEPARATOR .'views'. DIRECTORY_SEPARATOR . 'slider.php');
+            if(isset($codefleet_bxslider_data)){
+                echo $codefleet_bxslider_data->get_slider_render($slider_slug, $slider_view);
             }
         }
     }

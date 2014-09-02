@@ -78,6 +78,9 @@ Use `<?php echo do_shortcode('[bxslider id="slider-1"]'); ?>`
 
 == Changelog ==
 
+= 1.4.1 - 2014-09-02 =
+* Fix. Regression bug where function bxslider() does not work anymore.
+
 = 1.4.0 - 2014-08-30 =
 * Major code refactoring and clean-up for future updates. Plugin now easily overridable. 
 * Activating free and pro at the same time will not trigger an error. Pro will just override it. Both versions should be 1.4.0 or greater for this to work.
@@ -116,6 +119,15 @@ Use `<?php echo do_shortcode('[bxslider id="slider-1"]'); ?>`
 
 
 == Upgrade Notice ==
+
+= 1.4.1 - 2014-09-02 =
+* Fix. Regression bug where function bxslider() does not work anymore.
+
+= 1.4.0 - 2014-08-30 =
+* Major code refactoring and clean-up for future updates. Plugin now easily overridable. 
+* Activating free and pro at the same time will not trigger an error. Pro will just override it. Both versions should be 1.4.0 or greater for this to work.
+* Updated bxslider scripts to 4.1.2.
+* Fix bug when using horizontal mode when using CSS transitions ("Use CSS" checked in settings). 
 
 = 1.3.3 - 2013-08-14 =
 * Added metabox to easily grab slider codes.
