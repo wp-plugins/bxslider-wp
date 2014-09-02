@@ -173,4 +173,5 @@ class Codefleet_BxSlider_Main {
 		return $output;
 	}
 	
+	
 }
