@@ -2,47 +2,9 @@
 /**
  * Class that handles the slideshow admin pages 
  */
-class Codefleet_BxSlider_Admin {
+class BxSliderWp_Admin extends BxSliderWp_Base {
 	
-	protected $version;
-	protected $path;
-	protected $url;
-	protected $debug;
-	protected $textdomain;
-	protected $data;
-	protected $view; // Our view manager
-	protected $view_folder;
-	protected $nonce_name;
-	protected $nonce_action;
-	
-	/**
-	 * Initializes the plugin
-	 */
-	public function __construct(){}
-	
-	public static function get_instance(){
-		
-		static $instance = null;
-        if (null === $instance) {
-            $instance = new self;
-        }
-        return $instance;
-	}
-	
-	public function init($version, $path, $url, $debug, $textdomain, Codefleet_Common_View $view, $view_folder, Codefleet_BxSlider_Data $data ) {
-		
-		$this->version = $version;
-		$this->path = $path;
-		$this->url = $url;
-		$this->debug = $debug;
-		$this->textdomain = $textdomain;
-		$this->view = $view;
-		$this->data = $data;
-		$this->view_folder = $view_folder;
-		
-		// Intialize properties
-		$this->nonce_name = 'bxslider_builder_nonce'; //Must match with the one in class-bxslider-data.php
-		$this->nonce_action = 'bxslider-save'; //Must match with the one in class-bxslider-data.php
+	public function bootstrap(){
 		
 		// Register admin styles and scripts
 		add_action( 'admin_enqueue_scripts', array( $this, 'register_wp_media' ), 9);
@@ -51,6 +13,9 @@ class Codefleet_BxSlider_Admin {
 		// Setup bxslider custom post
 		add_action( 'init', array( $this, 'create_post_types' ) );
 		
+		// Change admin menu icon
+        add_action( 'admin_init', array( $this, 'change_admin_menu_icon' ) );
+			
 		// Add builder metaboxes
 		add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
 		
@@ -66,6 +31,7 @@ class Codefleet_BxSlider_Admin {
 		
 		// Save routine
 		add_action( 'save_post', array( $this, 'save_post' ) );
+		
 	}
 	
 	/**
@@ -103,23 +69,23 @@ class Codefleet_BxSlider_Admin {
 				$new_media_gallery = true;
 			}
 			
-			wp_enqueue_style( 'bxslider-admin-styles', $this->url.'css/admin.css', array(), $this->version  );
+			wp_enqueue_style( 'bxslider-admin-styles', $this->plugin['url'].'css/admin.css', array(), $this->plugin['version']  );
 			
 			// Scripts
 			wp_dequeue_script( 'autosave' );//disable autosave
 			
-			wp_enqueue_script( 'store', $this->url.'js/store-json2.min.js', array('jquery'), $this->version );
+			wp_enqueue_script( 'store', $this->plugin['url'].'js/store-json2.min.js', array('jquery'), $this->plugin['version'] );
 			
-			wp_register_script( 'bxslider-admin-script', $this->url.'js/admin.js', array('jquery', 'jquery-ui-sortable'), $this->version  );
+			wp_register_script( 'bxslider-admin-script', $this->plugin['url'].'js/admin.js', array('jquery', 'jquery-ui-sortable'), $this->plugin['version']  );
 			wp_localize_script( 'bxslider-admin-script', 'bxslider',
 				array(
 					'new_media_gallery' => $new_media_gallery,
-					'title'     => __( 'Select an image', 'bxslider' ), // This will be used as the default title
-					'title2'     => __( 'Select Images By Ctrl + Clicking Them', 'bxslider' ),
-					'button'    => __( 'Add to Slide', 'bxslider' ), // This will be used as the default button text
-					'button2'    => __( 'Add Images as Slides', 'bxslider' ),
-					'jquery_easing_options' => $this->to_select_options($this->data->get_jquery_easing_options()),
-					'css_easing_options' => $this->to_select_options($this->data->get_css_easing_options())
+					'title'     => __( 'Select an image', $this->plugin['textdomain'] ), // This will be used as the default title
+					'title2'     => __( 'Select Images By Ctrl + Clicking Them', $this->plugin['textdomain'] ),
+					'button'    => __( 'Add to Slide', $this->plugin['textdomain']), // This will be used as the default button text
+					'button2'    => __( 'Add Images as Slides', $this->plugin['textdomain'] ),
+					'jquery_easing_options' => $this->to_select_options($this->plugin['data']->get_jquery_easing_options()),
+					'css_easing_options' => $this->to_select_options($this->plugin['data']->get_css_easing_options())
 				)
 			);
 			wp_enqueue_script( 'bxslider-admin-script');
@@ -137,16 +103,16 @@ class Codefleet_BxSlider_Admin {
 		register_post_type( 'bxslider',
 			array(
 				'labels' => array(
-					'name' => __('BxSlider', 'bxslider'),
-					'singular_name' => __('Slider', 'bxslider'),
-					'add_new' => __('Add Slider', 'bxslider'),
-					'add_new_item' => __('Add New Slider', 'bxslider'),
-					'edit_item' => __('Edit Slider', 'bxslider'),
-					'new_item' => __('New Slider', 'bxslider'),
-					'view_item' => __('View Slider', 'bxslider'),
-					'search_items' => __('Search Sliders', 'bxslider'),
-					'not_found' => __('No sliders found', 'bxslider'),
-					'not_found_in_trash' => __('No sliders found in Trash', 'bxslider')
+					'name' => __('BxSlider WP', $this->plugin['textdomain']),
+					'singular_name' => __('Slider', $this->plugin['textdomain']),
+					'add_new' => __('Add Slider', $this->plugin['textdomain']),
+					'add_new_item' => __('Add New Slider', $this->plugin['textdomain']),
+					'edit_item' => __('Edit Slider', $this->plugin['textdomain']),
+					'new_item' => __('New Slider', $this->plugin['textdomain']),
+					'view_item' => __('View Slider', $this->plugin['textdomain']),
+					'search_items' => __('Search Sliders', $this->plugin['textdomain']),
+					'not_found' => __('No sliders found', $this->plugin['textdomain']),
+					'not_found_in_trash' => __('No sliders found in Trash', $this->plugin['textdomain'])
 				),
 				'supports' => array('title'),
 				'public' => false,
@@ -158,6 +124,29 @@ class Codefleet_BxSlider_Admin {
 	}
 	
 	/**
+	* Change Icon
+	*/
+	public function change_admin_menu_icon() {
+		
+		global $menu, $wp_version;
+ 
+		if(!isset($menu) and !is_array($menu)) {
+			return false; // Abort
+		}
+ 
+		foreach( $menu as $key => $value ) {
+			if( 'edit.php?post_type=bxslider' == $value[2] ) {
+				if ( version_compare( $wp_version, '3.9', '<' ) ) { // WP 3.8 and below
+					$menu[$key][4] = str_replace('menu-icon-post', 'menu-icon-media', $menu[$key][4]);
+				} else { // WP 3.9+
+					$menu[$key][6] = 'dashicons-format-gallery';
+				}
+ 
+			}
+		}
+	}
+		
+	/**
 	 * Add Meta Boxes
 	 *
 	 * Add custom metaboxes to our slider custom post type
@@ -165,7 +154,7 @@ class Codefleet_BxSlider_Admin {
 	public function add_meta_boxes(){
 		add_meta_box(
 			'bxslider-slides-meta-box',
-			__('Slides', 'bxslider'),
+			__('Slides', $this->plugin['textdomain']),
 			array( $this, 'render_slides_meta_box' ),
 			'bxslider' ,
 			'normal',
@@ -173,7 +162,7 @@ class Codefleet_BxSlider_Admin {
 		);
 		add_meta_box(
 			'bxslider-slider-codes',
-			__('Get Slider Codes', 'bxslider'),
+			__('Get Slider Codes', $this->plugin['textdomain']),
 			array( $this, 'render_slider_codes' ),
 			'bxslider' ,
 			'side',
@@ -181,7 +170,7 @@ class Codefleet_BxSlider_Admin {
 		);
 		add_meta_box(
 			'bxslider-general-options-meta-box',
-			__('General Options', 'bxslider'),
+			__('General Options', $this->plugin['textdomain']),
 			array( $this, 'render_general_options_meta_box' ),
 			'bxslider' ,
 			'side',
@@ -189,7 +178,7 @@ class Codefleet_BxSlider_Admin {
 		);
 		add_meta_box(
 			'bxslider-pager-options-meta-box',
-			__('Pager Options', 'bxslider'),
+			__('Pager Options', $this->plugin['textdomain']),
 			array( $this, 'render_pager_options_meta_box' ),
 			'bxslider' ,
 			'normal',
@@ -197,7 +186,7 @@ class Codefleet_BxSlider_Admin {
 		);
 		add_meta_box(
 			'bxslider-controls-options-meta-box',
-			__('Controls Options', 'bxslider'),
+			__('Controls Options', $this->plugin['textdomain']),
 			array( $this, 'render_controls_options_meta_box' ),
 			'bxslider' ,
 			'normal',
@@ -205,7 +194,7 @@ class Codefleet_BxSlider_Admin {
 		);
 		add_meta_box(
 			'bxslider-auto-options-meta-box',
-			__('Auto Options', 'bxslider'),
+			__('Auto Options', $this->plugin['textdomain']),
 			array( $this, 'render_auto_options_meta_box' ),
 			'bxslider' ,
 			'normal',
@@ -213,7 +202,7 @@ class Codefleet_BxSlider_Admin {
 		);
 		add_meta_box(
 			'bxslider-carousel-options-meta-box',
-			__('Carousel Options', 'bxslider'),
+			__('Carousel Options', $this->plugin['textdomain']),
 			array( $this, 'render_carousel_options_meta_box' ),
 			'bxslider' ,
 			'normal',
@@ -226,47 +215,42 @@ class Codefleet_BxSlider_Admin {
 	 */
 	public function render_slides_meta_box( $post ){
 
-		$options = $this->data->get_options($post->ID);
-		$slides = $this->data->get_slides($post->ID);
+		$options = $this->plugin['data']->get_options($post->ID);
+		$slides = $this->plugin['data']->get_slides($post->ID);
 		
 		$slides_html = '';
 		
 		if(is_array($slides) and count($slides)>0):
 			
-			$this->view->set_view_file($this->view_folder . 'slide-edit.php');
 			foreach($slides as $i=>$slide):
 	
 				$vars = array();
 				$vars['i'] = $i;
-				$vars['options'] = $options;
-				$vars['slide'] = wp_parse_args($slide, $this->data->get_slide_defaults());
+				$vars['slide'] = wp_parse_args($slide, $this->plugin['data']->get_slide_defaults());
 				$vars['image_url'] = $this->get_slide_img_thumb($slide['id']);
-				$vars['box_title'] = __('Slide', 'bxslider');
+				$vars['box_title'] = __('Slide', $this->plugin['textdomain']);
+				$vars['textdomain'] = $this->plugin['textdomain'];
 				
-				
-				$this->view->set_vars( $vars );
-				$slides_html .= $this->view->get_render();
+				$slides_html .= $this->plugin['view']->get_render('slide-edit.php', $vars);
 			endforeach;
 		endif;
+		
 		$vars = array();
 		$vars['slides'] = $slides_html;
 		$vars['post_id'] = $post->ID;
 		
-		$this->view->set_view_file( $this->view_folder . 'slides.php' );
-		$this->view->set_vars( $vars );
-		$this->view->render();
+		$this->plugin['view']->render( 'slides.php', $vars );
 
-		
-		//$this->data->debug( $this->data->get_options( $post->ID ));
-		//$this->data->debug( $this->data->get_slides( $post->ID ));
+		if($this->plugin['debug']){
+			$this->plugin['data']->debug( $this->plugin['data']->get_options( $post->ID ));
+			$this->plugin['data']->debug( $this->plugin['data']->get_slides( $post->ID ));
+		}
 	}
 	
 	/**
 	 * Metabox for slider codes
 	 */
 	public function render_slider_codes( $post ){
-		
-		$this->view->set_view_file( $this->view_folder . 'slider-codes.php' );
 		
 		$vars = array();
 		$vars['post'] = $post;
@@ -277,8 +261,8 @@ class Codefleet_BxSlider_Admin {
 			$vars['shortcode'] = '[bxslider id="'.$post->post_name.'"]';
 			$vars['template_code'] = '<?php if( function_exists(\'bxslider\') ) bxslider(\''.$post->post_name.'\'); ?>';
 		}
-		$this->view->set_vars( $vars );
-		$this->view->render();
+		
+		$this->plugin['view']->render('slider-codes.php', $vars);
 
 	}
 	
@@ -287,12 +271,12 @@ class Codefleet_BxSlider_Admin {
 	 */
 	public function render_general_options_meta_box( $post ){
 		
-		$options = $this->data->get_options( $post->ID );
+		$options = $this->plugin['data']->get_options( $post->ID );
 
 		$vars = array();
 		$vars['options'] = $options;
-		$vars['nonce_name'] = $this->nonce_name;
-		$vars['nonce'] = wp_create_nonce( $this->nonce_action );
+		$vars['nonce_name'] = $this->plugin['nonce_name'];
+		$vars['nonce'] = wp_create_nonce( $this->plugin['nonce_action'] );
 		$mode_options = array(
 			array(
 				'value'=>'horizontal',
@@ -319,9 +303,9 @@ class Codefleet_BxSlider_Admin {
 		
 		// Easing
 		if($options['use_css']=='true'){
-			$vars['easing_options'] = $this->to_select_options($this->data->get_css_easing_options(), $options['easing']);
+			$vars['easing_options'] = $this->to_select_options($this->plugin['data']->get_css_easing_options(), $options['easing']);
 		} else {
-			$vars['easing_options'] = $this->to_select_options($this->data->get_jquery_easing_options(), $options['easing']);
+			$vars['easing_options'] = $this->to_select_options($this->plugin['data']->get_jquery_easing_options(), $options['easing']);
 		}
 		
 		$preload_images_options = array(
@@ -343,9 +327,7 @@ class Codefleet_BxSlider_Admin {
 		}
 		$vars['preload_images_options'] = $preload_images_options;
 		
-		$this->view->set_view_file( $this->view_folder . 'general-options.php' );
-		$this->view->set_vars( $vars );
-		$this->view->render();
+		$this->plugin['view']->render('general-options.php', $vars);
 
 	}
 	
@@ -354,7 +336,7 @@ class Codefleet_BxSlider_Admin {
 	 */
 	public function render_pager_options_meta_box( $post ){
 		
-		$options = $this->data->get_options( $post->ID );
+		$options = $this->plugin['data']->get_options( $post->ID );
 		$vars = array();
 		$vars['options'] = $options;
 		
@@ -377,9 +359,7 @@ class Codefleet_BxSlider_Admin {
 		}
 		$vars['pager_type_options'] = $pager_type_options;
 		
-		$this->view->set_view_file( $this->view_folder . 'pager-options.php' );
-		$this->view->set_vars( $vars );
-		$this->view->render();
+		$this->plugin['view']->render('pager-options.php', $vars);
 	}
 	
 	/**
@@ -387,7 +367,7 @@ class Codefleet_BxSlider_Admin {
 	 */
 	public function render_controls_options_meta_box( $post ){
 		
-		$options = $this->data->get_options( $post->ID );
+		$options = $this->plugin['data']->get_options( $post->ID );
 		$vars = array();
 		$vars['options'] = $options;
 		
@@ -410,9 +390,7 @@ class Codefleet_BxSlider_Admin {
 		}
 		$vars['auto_controls_options'] = $auto_controls_options;
 		
-		$this->view->set_view_file( $this->view_folder . 'controls-options.php' );
-		$this->view->set_vars( $vars );
-		$this->view->render();
+		$this->plugin['view']->render('controls-options.php', $vars);
 	}
 	
 	/**
@@ -420,7 +398,7 @@ class Codefleet_BxSlider_Admin {
 	 */
 	public function render_auto_options_meta_box( $post ){
 		
-		$options = $this->data->get_options( $post->ID );
+		$options = $this->plugin['data']->get_options( $post->ID );
 		$vars = array();
 		$vars['options'] = $options;
 		
@@ -443,9 +421,7 @@ class Codefleet_BxSlider_Admin {
 		}
 		$vars['auto_direction_options'] = $auto_direction_options;
 		
-		$this->view->set_view_file( $this->view_folder . 'auto-options.php' );
-		$this->view->set_vars( $vars );
-		$this->view->render();
+		$this->plugin['view']->render('auto-options.php', $vars);
 	}
 	
 	/**
@@ -453,7 +429,7 @@ class Codefleet_BxSlider_Admin {
 	 */
 	public function render_carousel_options_meta_box( $post ){
 		
-		$options = $this->data->get_options( $post->ID );
+		$options = $this->plugin['data']->get_options( $post->ID );
 		$vars = array();
 		$vars['options'] = $options;
 		
@@ -476,9 +452,7 @@ class Codefleet_BxSlider_Admin {
 		}
 		$vars['auto_controls_options'] = $auto_controls_options;
 		
-		$this->view->set_view_file( $this->view_folder . 'carousel-options.php' );
-		$this->view->set_vars( $vars );
-		$this->view->render();
+		$this->plugin['view']->render('carousel-options.php', $vars);
 	}
 	
 	/**
@@ -486,10 +460,10 @@ class Codefleet_BxSlider_Admin {
 	 */
 	public function slideshow_columns($columns) {
 		$columns = array();
-		$columns['title']= __('Slider Name', 'bxslider');
-		$columns['images']= __('Images', 'bxslider');
-		$columns['id']= __('Slider ID', 'bxslider');
-		$columns['shortcode']= __('Shortcode', 'bxslider');
+		$columns['title']= __('Slider Name', $this->plugin['textdomain']);
+		$columns['images']= __('Images', $this->plugin['textdomain']);
+		$columns['id']= __('Slider ID', $this->plugin['textdomain']);
+		$columns['shortcode']= __('Shortcode', $this->plugin['textdomain']);
 		return $columns;
 	}
 	
@@ -498,7 +472,7 @@ class Codefleet_BxSlider_Admin {
 	 */
 	public function custom_column( $column_name, $post_id ){
 		if ($column_name == 'images') {
-			echo '<div style="text-align:center; max-width:40px;">' .$this->data->get_slides_count($post_id). '</div>';
+			echo '<div style="text-align:center; max-width:40px;">' .$this->plugin['data']->get_slides_count($post_id). '</div>';
 		}
 		if ($column_name == 'id') {
 			$post = get_post($post_id);
@@ -519,16 +493,16 @@ class Codefleet_BxSlider_Admin {
 		global $post, $post_ID;
 		$messages['bxslider'] = array(
 			0  => '',
-			1  => __( 'Slider updated.', 'bxslider' ),
-			2  => __( 'Custom field updated.', 'bxslider' ),
-			3  => __( 'Custom field deleted.', 'bxslider' ),
-			4  => __( 'Slider updated.', 'bxslider' ),
-			5  => __( 'Slider updated.', 'bxslider' ),
-			6  => __( 'Slider created.', 'bxslider' ),
-			7  => __( 'Slider saved.', 'bxslider' ),
-			8  => __( 'Slider updated.', 'bxslider' ),
-			9  => __( 'Slider updated.', 'bxslider' ),
-			10 => __( 'Slider updated.', 'bxslider' )
+			1  => __( 'Slider updated.', $this->plugin['textdomain'] ),
+			2  => __( 'Custom field updated.', $this->plugin['textdomain'] ),
+			3  => __( 'Custom field deleted.', $this->plugin['textdomain'] ),
+			4  => __( 'Slider updated.', $this->plugin['textdomain'] ),
+			5  => __( 'Slider updated.', $this->plugin['textdomain'] ),
+			6  => __( 'Slider created.', $this->plugin['textdomain'] ),
+			7  => __( 'Slider saved.', $this->plugin['textdomain'] ),
+			8  => __( 'Slider updated.', $this->plugin['textdomain'] ),
+			9  => __( 'Slider updated.', $this->plugin['textdomain'] ),
+			10 => __( 'Slider updated.', $this->plugin['textdomain'] )
 		);
 		return $messages;
 	}
@@ -541,27 +515,49 @@ class Codefleet_BxSlider_Admin {
 		// Add our slide edit skeleton for use in JS
 		if(get_post_type()=='bxslider'){
 
-			$slide = $this->data->get_slide_defaults();
+			$slide = $this->plugin['data']->get_slide_defaults();
 			
 			$vars = array();
 			
-			$vars['debug'] = $this->debug;
-			$vars['box_title'] = __('Slide *', 'bxslider');
+			$vars['debug'] = $this->plugin['debug'];
+			$vars['box_title'] = __('Slide *', $this->plugin['textdomain']);
 			$vars['image_url'] = '';
 			$vars['i'] = '{id}';
 			$vars['slide'] = $slide;
 			$vars['post_id'] = isset($_GET['post']) ? (int) $_GET['post'] : 0;
 			
-			$this->view->set_view_file( $this->view_folder . 'slide-edit.php' );
-			$this->view->set_vars( $vars );
 		?>
 			<div class="bxslider-slide-skeleton">
 				<?php
-				$this->view->render();
+				$this->plugin['view']->render('slide-edit.php', $vars);
 				?>
 			</div><!-- end .bxslider-box-template -->
 		<?php
 		}
+	}
+	
+	/**
+	 * Save post hook
+	 */
+	public function save_post($post_id){
+		
+		// Verify nonce
+		if (!empty( $_POST[ $this->plugin['nonce_name'] ] )) {
+			if (!wp_verify_nonce($_POST[ $this->plugin['nonce_name'] ], $this->plugin['nonce_action'] )) {
+				return $post_id;
+			}
+		} else {
+			return $post_id; // Make sure we cancel on missing nonce!
+		}
+		
+		// Ignore autosave
+		if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+			return $post_id;
+		}
+		
+		delete_post_meta($post_id, '_bxslider');
+		update_post_meta($post_id, '_bxslider', $_POST['bxslider']);
+	
 	}
 	
 	 /**
@@ -587,30 +583,5 @@ class Codefleet_BxSlider_Admin {
 			$out .= '<option '.$selected.' value="'.$option['value'].'">'.$option['text'].'</option>';
 		}
 		return $out;
-	}
-	
-	
-	/**
-	 * Save post hook
-	 */
-	public function save_post($post_id){
-		
-		// Verify nonce
-		if (!empty( $_POST[ $this->nonce_name ] )) {
-			if (!wp_verify_nonce($_POST[ $this->nonce_name ], $this->nonce_action )) {
-				return $post_id;
-			}
-		} else {
-			return $post_id; // Make sure we cancel on missing nonce!
-		}
-		
-		// Check autosave
-		if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
-			return $post_id;
-		}
-		
-		delete_post_meta($post_id, '_bxslider');
-		update_post_meta($post_id, '_bxslider', $_POST['bxslider']);
-	
 	}
 }

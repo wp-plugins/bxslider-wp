@@ -2,22 +2,14 @@
 /**
  * Class for saving and getting data  
  */
-class Codefleet_BxSlider_Data {
-	
-	private $nonce_name;
-	private $nonce_action;
-	
-	/**
-	 * Initializes the class
-	 */
-	public function __construct(){}
+class BxSliderWp_Data extends BxSliderWp_Base {
 	
 	/**
 	 * Gets all sliders
 	 *
 	 * @return array The array of slider
 	 */
-	public function get_sliders() {
+	public static function get_sliders() {
 		$args = array(
 			'post_type' => 'bxslider',
 			'order'=>'ASC',
@@ -58,7 +50,7 @@ class Codefleet_BxSlider_Data {
 		}
 	}
 	
-	public function get_slider_render($slider_slug, $slider_view) {
+	public function get_slider_render($slider_slug, $view) {
 		
 		$name = esc_attr($slider_slug);// Slideshow slug or ID
 
@@ -81,12 +73,11 @@ class Codefleet_BxSlider_Data {
 				$vars['slides'][$i]['image_url'] = $image_url;
 			}
 			
-			$slider_view->set_vars( $vars );
-			$output = $slider_view->get_render();
+			$output = $view->get_render('slider.php', $vars);
 			
 		} else {
 			
-			$output = sprintf(__('[Slider "%s" not found]', 'bxslider'), $name);
+			$output = sprintf(__('[Slider "%s" not found]', $this->plugin['textdomain']), $name);
 			
 		}
 		
@@ -168,6 +159,26 @@ class Codefleet_BxSlider_Data {
 		return $options;
 	}
 	
+	/**
+	 * Format Options
+	 *
+	 * Turn options into html5 data attributes to be used by the slider
+	 *
+	 * @param int $slider_id - ID of slider to get options from
+	 * @return string Slide options formatted as data attributes
+	 */
+	public function format_options($slider_id){
+        
+		$options = $this->get_options( $slider_id );
+		$out = ' ';
+		foreach($options as $name=>$option){
+			$out .= 'data-bxslider-'.str_replace('_', '-', $name).'="'.$option.'"';
+		}
+		$out.=' ';
+		return $out;
+		
+	}
+		
 	/**
 	 * Get default options
 	 *
