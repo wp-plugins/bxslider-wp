@@ -3,8 +3,8 @@ Contributors: kosinix
 Donate link: http://www.codefleet.net/donate/
 Tags: bxslider, wordpress, slider, slideshow, carousel, jquery, responsive, multilingual, custom post
 Requires at least: 3.5
-Tested up to: 3.9.2
-Stable tag: 1.4.1
+Tested up to: 4.1
+Stable tag: 1.4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -78,6 +78,10 @@ Use `<?php echo do_shortcode('[bxslider id="slider-1"]'); ?>`
 
 == Changelog ==
 
+= 1.5.2 - 2015-01-06 =
+* Merge with changes from pro.
+* Change codebase to use dependency injection container, autoloader and improved template view class.
+
 = 1.4.1 - 2014-09-02 =
 * Fix. Regression bug where function bxslider() does not work anymore.
 
@@ -119,6 +123,10 @@ Use `<?php echo do_shortcode('[bxslider id="slider-1"]'); ?>`
 
 
 == Upgrade Notice ==
+
+= 1.5.2 - 2015-01-06 =
+* Merge with changes from pro.
+* Change codebase to use dependency injection container, autoloader and improved template view class.
 
 = 1.4.1 - 2014-09-02 =
 * Fix. Regression bug where function bxslider() does not work anymore.

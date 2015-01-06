@@ -2,72 +2,44 @@
 /**
 * Class that handles the front-end slider
 */
-class Codefleet_BxSlider_Main {
-	
-	protected $version;
-	protected $path;
-	protected $url;
-	protected $debug;
-	protected $textdomain;
-	protected $data;
-	protected $view; // Our view manager
+class BxSliderWp_Frontend extends BxSliderWp_Base {
 	
 	protected $scripts; // Hold the scripts
 	protected $styles; // Hold the CSS
 	
-	/**
-	 * Constructor intentionally left empty 
-	 */
-	public function __construct() {}
 	
-	public static function get_instance(){
+	public function bootstrap() {
 		
-		static $instance = null;
-        if (null === $instance) {
-            $instance = new self;
-        }
-        return $instance;
-	}
-	
-	public function init($version, $path, $url, $debug, $textdomain, Codefleet_Common_View $view, Codefleet_BxSlider_Data $data ) {
-		
-		$this->version = $version;
-		$this->path = $path;
-		$this->url = $url;
-		$this->debug = $debug;
-		$this->textdomain = $textdomain;
-		$this->view = $view;
-		$this->data = $data;
 		
 		$this->styles = array(
 			'bxslider-styles' => array(
-				'url' => $this->url.'bxslider/jquery.bxslider.css',
+				'url' => $this->plugin['url'].'bxslider/jquery.bxslider.css',
 				'deps' => array(),
-				'ver' => $this->version,
+				'ver' => $this->plugin['version'],
 				'media' => 'all'
 			)
 		);
 		
 		$this->scripts = array(
 			'easing' => array(
-				'url' => $this->url.'bxslider/plugins/jquery.easing.1.3.js',
+				'url' => $this->plugin['url'].'bxslider/plugins/jquery.easing.1.3.js',
 				'deps' => array('jquery'),
-				'ver' => $this->version
+				'ver' => $this->plugin['version']
 			),
 			'fitvids' => array(
-				'url' => $this->url.'bxslider/plugins/jquery.fitvids.js',
+				'url' => $this->plugin['url'].'bxslider/plugins/jquery.fitvids.js',
 				'deps' => array('jquery'),
-				'ver' => $this->version
+				'ver' => $this->plugin['version']
 			),
 			'bxslider' => array(
-				'url' => $this->url.'bxslider/jquery.bxslider.min.js',
+				'url' => $this->plugin['url'].'bxslider/jquery.bxslider.min.js',
 				'deps' => array('jquery'),
-				'ver' => $this->version
+				'ver' => $this->plugin['version']
 			),
 			'bxslider-initialize' => array(
-				'url' => $this->url.'js/initialize.min.js',
+				'url' => $this->plugin['url'].'js/initialize.js',
 				'deps' => array('bxslider'),
-				'ver' => $this->version
+				'ver' => $this->plugin['version']
 			)
 		);
 		
@@ -87,9 +59,9 @@ class Codefleet_BxSlider_Main {
 		/*** We do some checking here so that we load only scripts when needed. ***/
 		$is_using_jquery_easing = false;
 		$has_video = false;
-		if($sliders = $this->data->get_sliders()){
+		if($sliders = $this->plugin['data']->get_sliders()){
 			foreach($sliders as $slider){
-				$options = $this->data->get_options($slider->ID);
+				$options = $this->plugin['data']->get_options($slider->ID);
 				if($options['use_css']=='false'){
 					$is_using_jquery_easing = true;
 				}
@@ -146,32 +118,31 @@ class Codefleet_BxSlider_Main {
 
 		$output = '';
 		
-		if( $slider = $this->data->get_slider_by_name( $name ) ){
+		if( $slider = $this->plugin['data']->get_slider_by_name( $name ) ){
 
-			$slides = $this->data->get_slides( $slider->ID );
-			$options = $this->data->get_options( $slider->ID );
+			$slides = $this->plugin['data']->get_slides( $slider->ID );
+			$options = $this->plugin['data']->get_options( $slider->ID );
 			
 			$vars = array();
 			$vars['slides'] = $slides;
 			$vars['options'] = $options;
 			$vars['slider_id'] = $slider->ID;
+			$vars['data_attributes'] = $this->plugin['data']->format_options( $slider->ID );
 			
 			foreach($vars['slides'] as $i=>$slide){
-				$vars['slides'][$i] = wp_parse_args($slide, $this->data->get_slide_defaults()); //Apply defaults in case some keys are missing
+				$vars['slides'][$i] = wp_parse_args($slide, $this->plugin['data']->get_slide_defaults()); //Apply defaults in case some keys are missing
 				$image_url = wp_get_attachment_image_src( $slide['id'], 'full' );
 				$image_url = (is_array($image_url)) ? $image_url[0] : '';
 				$vars['slides'][$i]['image_url'] = $image_url;
 			}
-			$view_path = apply_filters('bxslider_view_path', $this->path . 'views/slider.php', $slider->post_name, $options, $slides);
-			$this->view->set_view_file( $view_path );
-			$this->view->set_vars( $vars );
-			$output = $this->view->get_render();
+			$view_path = apply_filters('bxslider_view_path', $this->plugin['path'] . 'views/slider.php', $slider->post_name, $options, $slides);
+			
+			$output = $this->plugin['view']->get_render('slider.php', $vars);
 		} else {
-			$output = sprintf(__('[Slider "%s" not found]', 'bxslider'), $name);
+			$output = sprintf(__('[Slider "%s" not found]', $this->plugin['textdomain']), $name);
 		}
 		
 		return $output;
 	}
-	
 	
 }

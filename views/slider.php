@@ -1,6 +1,6 @@
 <?php if(!defined('ABSPATH')) die('Direct access denied.'); ?>
 
-<ul class="bxslider" <?php bxslider_options( $slider_id ); ?>>
+<ul class="bxslider" <?php echo $data_attributes; ?>>
     <?php foreach($slides  as $slide): ?>
         <?php if($slide['type'] == 'image'): ?>
         <li>
